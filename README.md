@@ -3,7 +3,7 @@
 ## 1. 项目概述
 
 - **类型**：2D 单场景剧情推理 + 生存资源管理
-- **极简描述** ：在15天食物耗尽前，辨认真实与梦境，从三位渔民互相矛盾的信息中推导唯一正确的求生路线。
+- **极简描述**：在 15 天食物耗尽前，辨认真实与梦境，从三位渔民互相矛盾的信息中推导唯一正确的求生路线。
 - **核心卖点**
   - 单场景、低成本开发
   - 梦境真假推理
@@ -12,28 +12,28 @@
 
 ## 2. 核心玩法循环（Core Loop）
 
-``` text
- 开始新的一天
-      │
-      ▼
-   观察环境
+```text
+开始新的一天
+     │
+     ▼
+  观察环境
 (收集梦境线索)
-      │
-      ▼
-  与渔民交流
-      │
-      ▼
-   是否施救？
-      │
-      ▼
-   选择行动
+     │
+     ▼
+ 与渔民交流
+     │
+     ▼
+  是否施救？
+     │
+     ▼
+  选择行动
 (停留/继续前进/返回)
-      │
-      ▼
-   消耗食物
-      │
-      ▼
-  进入下一天
+     │
+     ▼
+  消耗食物
+     │
+     ▼
+   进入下一天
 ```
 
 玩家每天只完成一次循环。
@@ -41,7 +41,7 @@
 ## 3. 世界观与故事
 
 - 玩家海难漂流到陌生海岸，与三名渔民一同幸存。
-- 食物只能维持15天。
+- 食物只能维持 15 天。
 - 头部受伤导致每天醒来可能进入梦境。
 - 梦境会改变环境与对话，但仍可能包含真实线索。
 - 玩家必须通过推理，而不是运气，找到真正的村庄。
@@ -50,7 +50,7 @@
 
 ### 4.1 时间系统
 
-- Day1\~Day15
+- Day1 ~ Day15
 - 每天结束自动推进
 
 ### 4.2 食物系统
@@ -61,7 +61,7 @@
 - 施救 -1
 - 行进 -1
 
-Food=0
+Food = 0
 
 立即失败。
 
@@ -78,15 +78,15 @@ Food=0
 
 示例：
 
-  现实 梦境
+```text
+现实       梦境
+---------- --------------
+太阳正常   太阳方向异常
+海浪正常   海浪静止
+脚印存在   脚印消失
+```
 
-  ---------- --------------
-
-  太阳正常 太阳方向异常
-  海浪正常 海浪静止
-  脚印存在 脚印消失
-
-### 4.4 NPC系统
+### 4.4 NPC 系统
 
 三位渔民：
 
@@ -96,7 +96,7 @@ Food=0
 
 状态：
 
-``` text
+```text
 昏迷
  │
  ▼
@@ -123,15 +123,13 @@ Food=0
 
 ### 4.6 路线系统
 
-``` text
-西：5天
-
-北：8天
-
-东：14天
+```text
+西：5 天
+北：8 天
+东：14 天
 ```
 
-每天：继续 或 返回
+每天：继续 或 返回。
 
 返回按已走距离原路返回。
 
@@ -144,41 +142,41 @@ Food=0
 
 ## 5. 游戏逻辑示意图
 
-``` text
-                 ┌────────────┐
-                 │ 新的一天开始 │
-                 └──────┬─────┘
-                        │
-                        ▼
-              是否梦境？(后台决定)
-                 │           │
-              Reality       Dream
-                 │           │
-                 └─────┬─────┘
-                       ▼
-                 玩家观察环境
-                       │
-             判断今天是真是假
+```text
+                ┌────────────┐
+                │ 新的一天开始 │
+                └──────┬─────┘
                        │
                        ▼
-              与渔民交流获得信息
-                       │
-             是否花费食物施救？
-                       │
-              ┌────────┴────────┐
-              ▼                 ▼
-          停留调查           出发旅行
-                                │
-                            继续 / 返回
-                                │
-                                ▼
-                             食物减少
-                                │
-                                ▼
+             是否梦境？(后台决定)
+                │           │
+             Reality       Dream
+                │           │
+                └─────┬─────┘
+                      ▼
+                玩家观察环境
+                      │
+            判断今天是真是假
+                      │
+                      ▼
+             与渔民交流获得信息
+                      │
+            是否花费食物施救？
+                      │
+             ┌────────┴────────┐
+             ▼                 ▼
+         停留调查           出发旅行
+                               │
+                           继续 / 返回
+                               │
+                               ▼
+                            食物减少
+                               │
+                               ▼
                               下一天
 ```
 
-## 6. Demo设计
+## 6. Demo 设计
 
 当前阶段只做最小可用版本（MVP），目标是“能从开局完整玩到结局”。
 
@@ -188,47 +186,105 @@ Food=0
 - 梦境判定
 - 三条路线
 - 食物消耗
-- 存档/读档
+- 存档/读档/清档
 - 至少两个可触发结局
 
-预计10\~20分钟。
+预计 10 ~ 20 分钟。
 
-## 7. Unity架构
+## 7. Godot 架构
 
-``` text
-GameManager
-├── DayManager
-├── FoodManager
-├── DreamManager
-├── NPCManager
-├── RouteManager
-├── DialogueManager
-├── SaveManager
-└── UIManager
+当前项目已切换到 **Godot 4.7**，采用“**1 个启动场景 + 1 个主场景 + 多个 Autoload + 数据资源驱动**”的结构。
+
+```text
+GameState (Autoload)
+SaveManager (Autoload)
+ConfigDB (Autoload)
+EventBus (Autoload)
+InputSetup (Autoload)
 ```
 
-推荐全部数据驱动：
+### 场景结构
 
-ScriptableObject 或 JSON。
+```text
+scenes/
+  boot/
+    boot.tscn
+    boot.gd
+  game/
+    game_root.tscn
+    game_root.gd
+  ui/
+    hud.tscn
+    hud.gd
+```
+
+### 系统结构
+
+```text
+systems/
+  day_system.gd
+  food_system.gd
+  dream_system.gd
+  npc_system.gd
+  route_system.gd
+  ending_system.gd
+```
+
+### 数据结构
+
+```text
+data/
+  config/
+    game_config.tres
+  characters/
+    fisher_west.tres
+    fisher_north.tres
+    fisher_east.tres
+  routes/
+    route_west.tres
+    route_north.tres
+    route_east.tres
+  dialogues/
+  endings/
+```
+
+### 运行链路
+
+```text
+boot.tscn
+ -> 初始化 GameState / InputSetup
+ -> 读取配置与资源
+ -> 切换到 game_root.tscn
+ -> HUD 监听状态变化
+ -> 玩家操作通过 EventBus 进入系统层
+ -> 系统层修改 GameState
+ -> SaveManager 处理存档
+```
+
+### 当前已落地
+
+- 启动场景与主场景入口
+- HUD 基础显示
+- 三位渔民的选中切换
+- 日/食物/路线/结局的基础状态流
+- `Resource` 数据类与示例资源
+- 输入动作自动注册
 
 ## 8. 玩家体验目标
 
-- 前10分钟：学会观察。
-
-- 20分钟：学会怀疑。
-
-- 30分钟：建立自己的推理模型。
-
+- 前 10 分钟：学会观察。
+- 20 分钟：学会怀疑。
+- 30 分钟：建立自己的推理模型。
 - 结局：玩家相信自己是因为推理正确，而不是随机运气获救。
 
 ## 9. 当前阶段 MVP
 
-当前只有 4 个开发时间单元，范围必须收紧。
+当前只做最小可用版本，范围必须收紧。
 
 ### 必做
 
 - [x] 单场景启动即玩
-- [x] 三位渔民的基础对话
+- [x] 三位渔民的基础对话入口
 - [x] 梦境/现实的基础判定
 - [x] 三条路线的选择与前进/返回
 - [x] 食物消耗与失败结局
@@ -271,32 +327,37 @@ ScriptableObject 或 JSON。
 
 ## 11. 输入绑定
 
-- [x] 移动：前进 / 返回
-- [x] 救人：救助当前选中渔民
-- [x] 对话：与当前选中渔民对话
-- [x] 睡觉：推进一天
+- [x] 前进：`W`
+- [x] 返回：`S`
+- [x] 对话：`E`
+- [x] 救人：`R`
+- [x] 睡觉：`Space`
+- [x] 存档：`F5`
+- [x] 读档：`F8`
 
 ## 12. 素材状态与缺口
 
 ### 当前已具备
 
-- `Assets/Resources/Settings/GameConfig.asset`
-- `Assets/Resources/Settings/CharacterMaterialLibrary.asset`
-- `Assets/Resources/Startup/background_coast.png`
-- `Assets/Resources/Startup/portrait_player.png`
-- `Assets/Resources/Startup/portrait_fisher_west.png`
-- `Assets/Resources/Startup/portrait_fisher_north.png`
-- `Assets/Resources/Startup/portrait_fisher_east.png`
-- `Assets/Resources/SeaCrash/` 下的同名运行时图片
-- 启动页、HUD、对话、路线、存档相关代码已接通
+- [x] `project.godot`
+- [x] `scripts/autoload/game_state.gd`
+- [x] `scripts/autoload/save_manager.gd`
+- [x] `scripts/autoload/config_db.gd`
+- [x] `scripts/autoload/event_bus.gd`
+- [x] `scripts/autoload/input_setup.gd`
+- [x] `scenes/boot/boot.tscn`
+- [x] `scenes/game/game_root.tscn`
+- [x] `scenes/ui/hud.tscn`
+- [x] `systems/` 下的基础系统脚本
+- [x] `data/` 下的资源类与示例 `.tres`
 
 ### 仍建议补齐
 
-- 结局画面素材：成功获救、饿死、时间耗尽、真结局的专用图
-- 按钮/状态图标：保存、读档、清档、前进、返回、救人、对话、睡觉
-- 音频素材：BGM、点击音、对话音效、结局音效
-- 标题识别图：Logo 或更明确的标题页主视觉
+- [ ] 结局画面素材：成功获救、饿死、时间耗尽、真结局的专用图
+- [ ] 按钮/状态图标：保存、读档、清档、前进、返回、救人、对话、睡觉
+- [ ] 音频素材：BGM、点击音、对话音效、结局音效
+- [ ] 标题识别图：Logo 或更明确的标题页主视觉
 
 ### 结论
 
-就“让整个游戏项目跑起来”而言，当前最关键的运行素材已经到位；剩余缺口主要是提升完成度，不是阻塞启动或主流程的硬性依赖。
+就“让整个游戏项目跑起来”而言，当前最关键的运行骨架已经到位；剩余缺口主要是提升完成度，不是阻塞启动或主流程的硬性依赖。

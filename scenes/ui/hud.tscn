@@ -5,19 +5,52 @@
 [node name="HUD" type="Control"]
 script = ExtResource("1")
 
-[node name="TopBar" type="HBoxContainer" parent="."]
+[node name="Root" type="VBoxContainer" parent="."]
 
-[node name="DayLabel" type="Label" parent="TopBar"]
+[node name="TopBar" type="HBoxContainer" parent="Root"]
+
+[node name="DayLabel" type="Label" parent="Root/TopBar"]
 text = "Day 1"
 
-[node name="FoodLabel" type="Label" parent="TopBar"]
+[node name="FoodLabel" type="Label" parent="Root/TopBar"]
 text = "Food: 15"
 
-[node name="DreamLabel" type="Label" parent="TopBar"]
+[node name="DreamLabel" type="Label" parent="Root/TopBar"]
 text = "Reality"
 
-[node name="RouteLabel" type="Label" parent="TopBar"]
+[node name="RouteLabel" type="Label" parent="Root/TopBar"]
 text = "west / 0"
 
-[node name="StatusLog" type="Label" parent="."]
+[node name="NpcRow" type="HBoxContainer" parent="Root"]
+
+[node name="NpcLabel" type="Label" parent="Root/NpcRow"]
+text = "NPC: -"
+
+[node name="NextNpcButton" type="Button" parent="Root/NpcRow"]
+text = "Next NPC"
+
+[node name="Actions" type="HBoxContainer" parent="Root"]
+
+[node name="TalkButton" type="Button" parent="Root/Actions"]
+text = "Talk"
+
+[node name="RescueButton" type="Button" parent="Root/Actions"]
+text = "Rescue"
+
+[node name="ForwardButton" type="Button" parent="Root/Actions"]
+text = "Forward"
+
+[node name="BackButton" type="Button" parent="Root/Actions"]
+text = "Back"
+
+[node name="SleepButton" type="Button" parent="Root/Actions"]
+text = "Sleep"
+
+[node name="SaveButton" type="Button" parent="Root/Actions"]
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="Root/Actions"]
+text = "Load"
+
+[node name="StatusLog" type="Label" parent="Root"]
 text = "Ready"
