@@ -1,5 +1,6 @@
 extends Node
-class_name GameState
+
+var _cdb: Node
 
 signal state_changed
 signal day_changed(day: int)
@@ -11,11 +12,12 @@ signal npc_state_changed(npc_id: String, state_value: int)
 signal flag_changed(flag_name: String, value: Variant)
 
 const DEFAULT_DAY := 1
-const MAX_DAY := 15
 const DEFAULT_FOOD := 15
 
 var current_day: int = DEFAULT_DAY
+var max_day: int = 15
 var food: int = DEFAULT_FOOD
+var starting_food: int = DEFAULT_FOOD
 var is_dream_today: bool = false
 var current_route: String = "west"
 var route_distance: int = 0
@@ -24,11 +26,20 @@ var npc_states: Dictionary = {}
 var clues: Array = []
 var flags: Dictionary = {}
 var ending_id: String = ""
+var pending_day_start: bool = false
 
+
+func _ready() -> void:
+	_cdb = get_node("/root/ConfigDB")
 
 func reset_game() -> void:
+	if _cdb == null:
+		return
+	var config: Variant = _cdb.get_game_config()
+	max_day = int(config.get("max_day", 15)) if config != null else 15
+	starting_food = int(config.get("starting_food", DEFAULT_FOOD)) if config != null else DEFAULT_FOOD
 	current_day = DEFAULT_DAY
-	food = DEFAULT_FOOD
+	food = starting_food
 	is_dream_today = false
 	current_route = "west"
 	route_distance = 0
@@ -37,6 +48,7 @@ func reset_game() -> void:
 	clues = []
 	flags = {}
 	ending_id = ""
+	pending_day_start = true
 	state_changed.emit()
 	day_changed.emit(current_day)
 	food_changed.emit(food)
@@ -47,6 +59,8 @@ func reset_game() -> void:
 func to_save_dict() -> Dictionary:
 	return {
 		"current_day": current_day,
+		"max_day": max_day,
+		"starting_food": starting_food,
 		"food": food,
 		"is_dream_today": is_dream_today,
 		"current_route": current_route,
@@ -61,6 +75,8 @@ func to_save_dict() -> Dictionary:
 
 func apply_save_dict(data: Dictionary) -> void:
 	current_day = int(data.get("current_day", DEFAULT_DAY))
+	max_day = int(data.get("max_day", 15))
+	starting_food = int(data.get("starting_food", DEFAULT_FOOD))
 	food = int(data.get("food", DEFAULT_FOOD))
 	is_dream_today = bool(data.get("is_dream_today", false))
 	current_route = String(data.get("current_route", "west"))
@@ -70,6 +86,7 @@ func apply_save_dict(data: Dictionary) -> void:
 	clues = data.get("clues", [])
 	flags = data.get("flags", {})
 	ending_id = String(data.get("ending_id", ""))
+	pending_day_start = false
 	state_changed.emit()
 	day_changed.emit(current_day)
 	food_changed.emit(food)
@@ -154,4 +171,3 @@ func set_ending(value: String) -> void:
 	ending_id = value
 	ending_changed.emit(ending_id)
 	state_changed.emit()
-

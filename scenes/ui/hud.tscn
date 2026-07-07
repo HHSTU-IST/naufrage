@@ -52,5 +52,8 @@ text = "Save"
 [node name="LoadButton" type="Button" parent="Root/Actions"]
 text = "Load"
 
+[node name="ClearButton" type="Button" parent="Root/Actions"]
+text = "Clear"
+
 [node name="StatusLog" type="Label" parent="Root"]
 text = "Ready"

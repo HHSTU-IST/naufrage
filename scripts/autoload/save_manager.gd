@@ -1,5 +1,4 @@
 extends Node
-class_name SaveManager
 
 const SAVE_DIR := "user://save"
 const SAVE_FILE_TEMPLATE := "slot_%d.json"
@@ -33,7 +32,7 @@ func load_game(slot_id: int) -> bool:
 		push_error("SaveManager: failed to open save file for reading: %s" % path)
 		return false
 
-	var parsed := JSON.parse_string(file.get_as_text())
+	var parsed: Variant = JSON.parse_string(file.get_as_text())
 	if typeof(parsed) != TYPE_DICTIONARY:
 		push_error("SaveManager: invalid save payload in %s" % path)
 		return false

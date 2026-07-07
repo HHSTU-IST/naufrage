@@ -1,5 +1,8 @@
 extends Control
 
+var _gs: Node
+var _eb: Node
+
 @onready var day_label = $Root/TopBar/DayLabel
 @onready var food_label = $Root/TopBar/FoodLabel
 @onready var dream_label = $Root/TopBar/DreamLabel
@@ -13,37 +16,41 @@ extends Control
 @onready var sleep_button = $Root/Actions/SleepButton
 @onready var save_button = $Root/Actions/SaveButton
 @onready var load_button = $Root/Actions/LoadButton
+@onready var clear_button = $Root/Actions/ClearButton
 @onready var next_npc_button = $Root/NpcRow/NextNpcButton
 
 func _ready() -> void:
-	GameState.state_changed.connect(_refresh)
-	GameState.day_changed.connect(_on_day_changed)
-	GameState.food_changed.connect(_on_food_changed)
-	GameState.ending_changed.connect(_on_ending_changed)
-	talk_button.pressed.connect(func(): EventBus.dialogue_requested.emit(GameState.selected_npc_id))
-	rescue_button.pressed.connect(func(): EventBus.rescue_requested.emit(GameState.selected_npc_id))
-	forward_button.pressed.connect(func(): EventBus.route_requested.emit("forward"))
-	back_button.pressed.connect(func(): EventBus.route_requested.emit("back"))
-	sleep_button.pressed.connect(func(): EventBus.sleep_requested.emit())
-	save_button.pressed.connect(func(): EventBus.save_requested.emit(0))
-	load_button.pressed.connect(func(): EventBus.load_requested.emit(0))
+	_gs = get_node("/root/GameState")
+	_eb = get_node("/root/EventBus")
+	_gs.state_changed.connect(_refresh)
+	_gs.day_changed.connect(_on_day_changed)
+	_gs.food_changed.connect(_on_food_changed)
+	_gs.ending_changed.connect(_on_ending_changed)
+	talk_button.pressed.connect(func(): _eb.dialogue_requested.emit(_gs.selected_npc_id))
+	rescue_button.pressed.connect(func(): _eb.rescue_requested.emit(_gs.selected_npc_id))
+	forward_button.pressed.connect(func(): _eb.route_requested.emit("forward"))
+	back_button.pressed.connect(func(): _eb.route_requested.emit("back"))
+	sleep_button.pressed.connect(func(): _eb.sleep_requested.emit())
+	save_button.pressed.connect(func(): _eb.save_requested.emit(0))
+	load_button.pressed.connect(func(): _eb.load_requested.emit(0))
+	clear_button.pressed.connect(func(): _eb.clear_requested.emit(0))
 	next_npc_button.pressed.connect(_cycle_npc)
 	_refresh()
 
 func _refresh() -> void:
-	day_label.text = "Day %d" % GameState.current_day
-	food_label.text = "Food: %d" % GameState.food
-	dream_label.text = "Dream" if GameState.is_dream_today else "Reality"
-	route_label.text = "%s / %d" % [GameState.current_route, GameState.route_distance]
-	npc_label.text = "NPC: %s" % (GameState.selected_npc_id if not GameState.selected_npc_id.is_empty() else "-")
-	talk_button.disabled = GameState.selected_npc_id.is_empty()
-	rescue_button.disabled = GameState.selected_npc_id.is_empty()
+	day_label.text = "Day %d" % _gs.current_day
+	food_label.text = "Food: %d" % _gs.food
+	dream_label.text = "Dream" if _gs.is_dream_today else "Reality"
+	route_label.text = "%s / %d" % [_gs.current_route, _gs.route_distance]
+	npc_label.text = "NPC: %s" % (_gs.selected_npc_id if not _gs.selected_npc_id.is_empty() else "-")
+	talk_button.disabled = _gs.selected_npc_id.is_empty()
+	rescue_button.disabled = _gs.selected_npc_id.is_empty()
 
 func _on_day_changed(day: int) -> void:
 	log_label.text = "新的第 %d 天开始" % day
 	_refresh()
 
-func _on_food_changed(food: int) -> void:
+func _on_food_changed(_food: int) -> void:
 	_refresh()
 
 func _on_ending_changed(ending_id: String) -> void:
@@ -51,10 +58,10 @@ func _on_ending_changed(ending_id: String) -> void:
 
 func _cycle_npc() -> void:
 	var order := ["fisher_west", "fisher_north", "fisher_east"]
-	var index := order.find(GameState.selected_npc_id)
+	var index := order.find(_gs.selected_npc_id)
 	if index < 0:
 		index = 0
 	else:
 		index = (index + 1) % order.size()
-	GameState.set_selected_npc(order[index])
+	_gs.set_selected_npc(order[index])
 	_refresh()

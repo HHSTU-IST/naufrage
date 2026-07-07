@@ -1,5 +1,4 @@
 extends Node
-class_name ConfigDB
 
 const GAME_CONFIG_PATH := "res://data/config/game_config.tres"
 const CHARACTER_DIR := "res://data/characters"
