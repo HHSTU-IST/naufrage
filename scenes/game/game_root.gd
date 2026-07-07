@@ -22,6 +22,9 @@ func _ready() -> void:
 	if day_system == null or food_system == null or npc_system == null or route_system == null or ending_system == null:
 		push_error("GameRoot: system nodes not available")
 		return
+	# DreamSystem is referenced by DaySystem; existence checked here for safety.
+	if not has_node("Systems/DreamSystem"):
+		push_warning("GameRoot: DreamSystem node missing, dream mechanics may not work")
 	_gs.state_changed.connect(_on_state_changed)
 	_eb.dialogue_requested.connect(_on_dialogue_requested)
 	_eb.route_requested.connect(_on_route_requested)

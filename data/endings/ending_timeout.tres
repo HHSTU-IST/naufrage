@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="EndingData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/ending_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "ending_timeout"
+title = "时间耗尽结局"
+description = "十五天过去了，你终究没能找到出路。"
+image_path = "res://assets/endings/ending_timeout.png"
