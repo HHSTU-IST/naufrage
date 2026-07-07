@@ -1,5 +1,4 @@
 extends Node
-class_name InputSetup
 
 func _ready() -> void:
 	_register("move_forward", KEY_W)
