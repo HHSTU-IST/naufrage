@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1"]
+
+[node name="HUD" type="Control"]
+script = ExtResource("1")
+
+[node name="TopBar" type="HBoxContainer" parent="."]
+
+[node name="DayLabel" type="Label" parent="TopBar"]
+text = "Day 1"
+
+[node name="FoodLabel" type="Label" parent="TopBar"]
+text = "Food: 15"
+
+[node name="DreamLabel" type="Label" parent="TopBar"]
+text = "Reality"
+
+[node name="RouteLabel" type="Label" parent="TopBar"]
+text = "west / 0"
+
+[node name="StatusLog" type="Label" parent="."]
+text = "Ready"

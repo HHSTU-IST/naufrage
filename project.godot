@@ -13,6 +13,14 @@ config_version=5
 config/name="Naufrage"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
+run/main_scene="res://scenes/boot/boot.tscn"
+
+[autoload]
+
+GameState="*res://scripts/autoload/game_state.gd"
+SaveManager="*res://scripts/autoload/save_manager.gd"
+ConfigDB="*res://scripts/autoload/config_db.gd"
+EventBus="*res://scripts/autoload/event_bus.gd"
 
 [display]
 
