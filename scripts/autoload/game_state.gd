@@ -1,6 +1,6 @@
 extends Node
 
-var _cdb: Node
+var _cdb: Variant
 
 signal state_changed
 signal day_changed(day: int)

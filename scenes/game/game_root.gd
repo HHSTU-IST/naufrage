@@ -2,15 +2,15 @@ extends Node
 
 const DEFAULT_SAVE_SLOT := 0
 
-var _gs: Node
-var _eb: Node
-var _sm: Node
+var _gs: Variant
+var _eb: Variant
+var _sm: Variant
 
-@onready var day_system = $Systems/DaySystem
-@onready var food_system = $Systems/FoodSystem
-@onready var npc_system = $Systems/NpcSystem
-@onready var route_system = $Systems/RouteSystem
-@onready var ending_system = $Systems/EndingSystem
+@onready var day_system: DaySystem = $Systems/DaySystem
+@onready var food_system: FoodSystem = $Systems/FoodSystem
+@onready var npc_system: NpcSystem = $Systems/NpcSystem
+@onready var route_system: RouteSystem = $Systems/RouteSystem
+@onready var ending_system: EndingSystem = $Systems/EndingSystem
 
 func _ready() -> void:
 	_gs = get_node("/root/GameState")

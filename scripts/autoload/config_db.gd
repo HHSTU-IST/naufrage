@@ -63,18 +63,18 @@ func has_ending(ending_id: String) -> bool:
 
 func _load_folder(folder_path: String) -> Dictionary:
 	var result: Dictionary = {}
-	var dir := DirAccess.open(folder_path)
+	var dir: DirAccess = DirAccess.open(folder_path)
 	if dir == null:
 		return result
 
 	dir.list_dir_begin()
-	var file_name := dir.get_next()
+	var file_name: String = dir.get_next()
 	while file_name != "":
 		if not dir.current_is_dir():
-			var extension := file_name.get_extension().to_lower()
+			var extension: String = file_name.get_extension().to_lower()
 			if extension in ["tres", "res", "json"]:
-				var key := file_name.get_basename()
-				var full_path := "%s/%s" % [folder_path, file_name]
+				var key: String = file_name.get_basename()
+				var full_path: String = "%s/%s" % [folder_path, file_name]
 				result[key] = _load_resource_or_variant(full_path, extension)
 		file_name = dir.get_next()
 	dir.list_dir_end()
@@ -89,7 +89,7 @@ func _load_resource(path: String) -> Resource:
 
 func _load_resource_or_variant(path: String, extension: String) -> Variant:
 	if extension == "json":
-		var file := FileAccess.open(path, FileAccess.READ)
+		var file: FileAccess = FileAccess.open(path, FileAccess.READ)
 		if file == null:
 			return null
 		return JSON.parse_string(file.get_as_text())

@@ -7,4 +7,4 @@ script = ExtResource("1")
 id = "ending_truth"
 title = "真结局"
 description = "你识破了梦与现实的边界。"
-image_path = "res://assets/endings/ending_truth.png"
+image_path = "res://assets/sprites/scene-dream.png"

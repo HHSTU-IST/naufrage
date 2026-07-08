@@ -1,11 +1,63 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scenes/ui/hud.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/ui-main.png" id="2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/scene-dream.png" id="3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/icons.png" id="4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player-stand.png" id="5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/npc-1-action.png" id="6"]
 
 [node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1")
 
+[node name="SceneBackground" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SceneLayer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NpcSprite" type="TextureRect" parent="SceneLayer"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 200.0
+offset_right = 736.0
+offset_bottom = 400.0
+texture = ExtResource("6")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="PlayerSprite" type="TextureRect" parent="SceneLayer"]
+layout_mode = 0
+offset_left = 416.0
+offset_top = 280.0
+offset_right = 576.0
+offset_bottom = 480.0
+texture = ExtResource("5")
+expand_mode = 1
+stretch_mode = 5
+
 [node name="Root" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 500.0
+offset_bottom = 638.0
 
 [node name="TopBar" type="HBoxContainer" parent="Root"]
 

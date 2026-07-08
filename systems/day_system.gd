@@ -1,7 +1,7 @@
 extends Node
 class_name DaySystem
 
-var rng := RandomNumberGenerator.new()
+var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	rng.randomize()
