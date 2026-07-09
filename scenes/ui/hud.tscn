@@ -90,6 +90,24 @@ text = "Clear"
 [node name="StatusLog" type="Label" parent="Root"]
 text = "Ready"
 
+[node name="DialoguePanel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 500.0
+offset_right = 500.0
+offset_bottom = 638.0
+visible = false
+
+[node name="DialogueBox" type="VBoxContainer" parent="DialoguePanel"]
+layout_mode = 2
+
+[node name="DialogueSpeaker" type="Label" parent="DialoguePanel/DialogueBox"]
+text = ""
+
+[node name="DialogueText" type="Label" parent="DialoguePanel/DialogueBox"]
+text = ""
+autowrap_mode = 3
+
 [node name="NpcWestSprite" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 620.0

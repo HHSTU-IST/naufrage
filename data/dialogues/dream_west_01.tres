@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/dialogue_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "dream_west_01"
+speaker_id = "fisher_west"
+text = "你看到的不是真的海。"
+dream_only = true
+clue_id = "clue_dream_west"
+reliability_delta = 2

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="DialogueData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/dialogue_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = "dream_east_01"
+speaker_id = "fisher_east"
+text = "灯光是假的...醒过来。"
+dream_only = true
+clue_id = "clue_dream_east"
+reliability_delta = 2

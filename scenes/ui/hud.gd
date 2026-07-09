@@ -47,6 +47,9 @@ const NPC_STATE_SPRITES := {
 @onready var npc_north_sprite: TextureRect = $NpcNorthSprite
 @onready var npc_east_sprite: TextureRect = $NpcEastSprite
 @onready var scene_background: TextureRect = $SceneBackground
+@onready var dialogue_panel: PanelContainer = $DialoguePanel
+@onready var dialogue_speaker: Label = $DialoguePanel/DialogueBox/DialogueSpeaker
+@onready var dialogue_text: Label = $DialoguePanel/DialogueBox/DialogueText
 
 func _ready() -> void:
 	_gs = get_node("/root/GameState")
@@ -72,6 +75,7 @@ func _ready() -> void:
 	_gs.food_changed.connect(_on_food_changed)
 	_gs.ending_changed.connect(_on_ending_changed)
 	_gs.npc_state_changed.connect(_on_npc_state_changed)
+	_eb.dialogue_displayed.connect(_on_dialogue_displayed)
 	talk_button.pressed.connect(func(): _eb.dialogue_requested.emit(_gs.selected_npc_id))
 	rescue_button.pressed.connect(func(): _eb.rescue_requested.emit(_gs.selected_npc_id))
 	forward_button.pressed.connect(func(): _eb.route_requested.emit("forward"))
@@ -151,3 +155,16 @@ func _show_ending_image(image_path: String) -> void:
 	if scene_background == null or not ResourceLoader.exists(image_path):
 		return
 	scene_background.texture = load(image_path)
+
+func _on_dialogue_displayed(speaker_name: String, text: String, dream_only: bool) -> void:
+	if dialogue_panel == null or dialogue_speaker == null or dialogue_text == null:
+		return
+	dialogue_speaker.text = speaker_name
+	dialogue_text.text = text
+	dialogue_panel.visible = true
+	# Auto-hide dialogue after a few seconds
+	var timer := get_tree().create_timer(4.0)
+	timer.timeout.connect(func():
+		if is_instance_valid(dialogue_panel):
+			dialogue_panel.visible = false
+	)

@@ -3,6 +3,8 @@ extends Node
 @warning_ignore("unused_signal")
 signal dialogue_requested(npc_id: String)
 @warning_ignore("unused_signal")
+signal dialogue_displayed(speaker_name: String, text: String, dream_only: bool)
+@warning_ignore("unused_signal")
 signal route_requested(route_id: String)
 @warning_ignore("unused_signal")
 signal rescue_requested(npc_id: String)

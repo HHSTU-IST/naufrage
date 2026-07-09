@@ -41,6 +41,11 @@ func _ready() -> void:
 
 func _on_state_changed() -> void:
 	ending_system.check_end_conditions()
+	if _is_game_over():
+		return
+	# 路线走完后尝试切换到下一条
+	if route_system.reached_end():
+		route_system.try_advance_route()
 
 func _on_dialogue_requested(npc_id: String) -> void:
 	if npc_id.is_empty() or _is_game_over():
